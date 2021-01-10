@@ -1,7 +1,7 @@
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { navigate } from 'hookrouter';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
@@ -49,7 +49,6 @@ const InputWithSpacing = Styled.div`
 export default function Login () {
     const classes = styles();
     const { inputs, handleSubmit, handleInputChange } = useLoginForm();
-    const [ redirect, setRedirect ] = useState( false );
     useEffect(() => {
         if ( inputs.success ) {
             navigate( '/dashboard', true );
@@ -86,7 +85,7 @@ export default function Login () {
                         />
                     </InputWithSpacing>
                     <InputWithSpacing>
-                        <Button onClick={ handleSubmit } className={ classes.button } variant="contained" color="secondary" disableElevation disableRipple fullWidth>
+                        <Button disabled={inputs.loading} onClick={ handleSubmit } className={ classes.button } variant="contained" color="secondary" disableElevation disableRipple fullWidth>
                             Login
                         </Button>
                     </InputWithSpacing>

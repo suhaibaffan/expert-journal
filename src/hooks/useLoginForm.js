@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { axios } from './useAxios';
+import { axios } from '../axios';
 import { setUserToLocalStorage } from '../helpers/auth';
 const getValidationErrors = ({ id, name }) => {
     const errors = [];
@@ -31,18 +31,25 @@ export default function useLoginForm ( fn ) {
         name: '',
         errors: [],
         valid: false,
-        success: false
+        success: false,
+        loading: false
     });
 
     const setInputsErrors = errors => {
         setInputs( nextInputs => ({
             ...nextInputs,
             valid: errors.length === 0,
-            errors
+            errors,
+            loading: false
         }) );
     };
 
     const handleSubmit = event => {
+        setInputs( nextInputs => ({
+            ...nextInputs,
+            loading: true
+        }) );
+
         if ( event )
             event.preventDefault();
 
@@ -58,7 +65,8 @@ export default function useLoginForm ( fn ) {
                 } else {
                     setInputs( prevInputs => ({
                         ...prevInputs,
-                        success: true
+                        success: true,
+                        loading: false
                     }) );
                 }
             }).catch( err => {
