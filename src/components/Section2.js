@@ -8,6 +8,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import CreateModal from './CreateModal';
+import Skeleton from './Section2Skeleton';
 
 const customStyles = makeStyles( () => ({
     root: {
@@ -74,26 +75,35 @@ export default function Section2 ( props ) {
 
     const classes = customStyles();
     return(
-        <Container className={classes.root} maxWidth="md">
-            <Typography className={classes.text} variant="h5">
-                Tasks
-            </Typography>
-            <div />
-            <div className={classes.div}>
-                <IconButton type="submit" className={classes.icon} aria-label="search">
-                    <SearchIcon />
-                </IconButton>
-                <InputBase
-                    className={classes.input}
-                    placeholder="Search by task name"
-                    inputProps={{ 'aria-label': 'search' }}
-                    
-                />
-            </div>
-            <Button onClick={handleOpen}  className={ classes.button } variant="contained" color="secondary" disableElevation disableRipple>
-                <AddOutlinedIcon className={ classes.addIcon } /> New Task
-            </Button>
-            <CreateModal open={open} handleClose={handleClose} />
-        </Container>
+        <div>
+            {
+                props.loading ?
+                <Container className={classes.root} maxWidth="md">
+                    <Skeleton />
+                </Container>
+                :
+                <Container className={classes.root} maxWidth="md">
+                    <Typography className={classes.text} variant="h5">
+                        Tasks
+                    </Typography>
+                    <div />
+                    <div className={classes.div}>
+                        <IconButton type="submit" className={classes.icon} aria-label="search">
+                            <SearchIcon />
+                        </IconButton>
+                        <InputBase
+                            className={classes.input}
+                            placeholder="Search by task name"
+                            inputProps={{ 'aria-label': 'search' }}
+                            
+                        />
+                    </div>
+                    <Button onClick={handleOpen}  className={ classes.button } variant="contained" color="secondary" disableElevation disableRipple>
+                        <AddOutlinedIcon className={ classes.addIcon } /> New Task
+                    </Button>
+                    <CreateModal open={open} handleClose={handleClose} />
+                </Container>
+            }
+        </div>
     );
 }

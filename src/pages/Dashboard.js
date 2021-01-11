@@ -7,6 +7,7 @@ import Section3 from '../components/Section3'
 import { getUserFromLocalStorage } from '../helpers/auth';
 import { handleLogout } from '../hooks/logout';
 import { getBackend, markCompleted, deleteTask } from '../axios';
+import Skeleton from '../components/Section1Skeleton';
 
 const DashboardDiv = Styled.div`
     background: #F4F4F6 0% 0% no-repeat padding-box;
@@ -15,6 +16,7 @@ const DashboardDiv = Styled.div`
 export default function Dashboard () {
     const userObj = getUserFromLocalStorage();
     const [ allTasks, setAllTasks ] = useState([]);
+    const [ loading, setLoading ] = useState(true);
     const [ dashboard, setDashboard ] = useState({ latestTasks: [] });
 
     const handleTaskCompleted = async value => {
@@ -23,13 +25,12 @@ export default function Dashboard () {
     };
 
     const refresh = async () => {
-        await reload( setDashboard, setAllTasks );
+        await reload( setDashboard, setAllTasks, setLoading );
     };
 
     const handleTaskDelete = async value => {
-        console.log(value)
         await deleteTask( value );
-        await reload( setDashboard, setAllTasks );
+        await reload( setDashboard, setAllTasks, setLoading );
     };
 
     useEffect( async () => {
@@ -43,28 +44,35 @@ export default function Dashboard () {
 
         setDashboard( () => ({
             ...result.dashboard
-        }))
+        }));
+        setLoading( false );
     }, [])
     return (
         <DashboardDiv>
             <Navbar name={userObj.name} profile={userObj.profile} logout={handleLogout} />
-            <Section1 dashboard={dashboard} />
-            <Section2 refresh={refresh}/>
-            <Section3 refresh={refresh} tasks={allTasks} handleTaskDelete={handleTaskDelete} handleTaskCompleted={handleTaskCompleted}/>
+            <Section1 loading={loading} dashboard={dashboard} />
+            <Section2 loading={loading} refresh={refresh}/>
+            <Section3 loading={loading} refresh={refresh} tasks={allTasks} handleTaskDelete={handleTaskDelete} handleTaskCompleted={handleTaskCompleted}/>
         </DashboardDiv>
     );
 }
 
-async function reload ( setDashboard, setTasks ) {
+async function reload ( setDashboard, setTasks, setLoading = false ) {
+    if ( setLoading )
+        setLoading( true );
+    
     const result = await getBackend();
         if ( result.redirect ) {
             handleLogout();
         }
-        setTasks( () => ([
-            ...result.allTasks.tasks.reverse()
-        ]) );
+    setTasks( () => ([
+        ...result.allTasks.tasks.reverse()
+    ]) );
 
-        setDashboard( ( ) => ({
-            ...result.dashboard
-        }))
+    setDashboard( ( ) => ({
+        ...result.dashboard
+    }));
+
+    if ( setLoading )
+        setLoading( false );
 }

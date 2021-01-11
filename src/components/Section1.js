@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import TaskCompletedCard from './TaskCompletedCard';
 import LatestCreatedTask from './LatestCreatedTask';
 import PieCard from './PieCard';
+import Skeleton from './Section1Skeleton';
 
 const customStyles = makeStyles( () => ({
     root: {
@@ -16,13 +17,23 @@ const customStyles = makeStyles( () => ({
 export default function Section1 ( props ) {
     const classes = customStyles();
     return (
-        <Container className={classes.root} maxWidth="md">
-                <TaskCompletedCard
-                    tasksCompleted={props.dashboard.tasksCompleted}
-                    totalTasks={props.dashboard.totalTasks}
-                />
-                <LatestCreatedTask tasks={props.dashboard.latestTasks}/>
-                <PieCard data={[ props.dashboard.totalTasks - props.dashboard.tasksCompleted, props.dashboard.tasksCompleted, ]}/>
-        </Container>
+        <div>
+            { props.loading ?
+                <Container className={classes.root} maxWidth="md">
+                    <Skeleton/>
+                    <Skeleton/>
+                    <Skeleton/>
+                </Container>
+                :
+                <Container className={classes.root} maxWidth="md">
+                        <TaskCompletedCard
+                            tasksCompleted={props.dashboard.tasksCompleted}
+                            totalTasks={props.dashboard.totalTasks}
+                        />
+                        <LatestCreatedTask tasks={props.dashboard.latestTasks}/>
+                        <PieCard data={[ props.dashboard.totalTasks - props.dashboard.tasksCompleted, props.dashboard.tasksCompleted, ]}/>
+                </Container>
+            }
+        </div>
     );
 }
