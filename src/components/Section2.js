@@ -1,3 +1,4 @@
+import React from 'react';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
@@ -6,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
+import CreateModal from './CreateModal';
 
 const customStyles = makeStyles( () => ({
     root: {
@@ -58,6 +60,18 @@ const customStyles = makeStyles( () => ({
 }) );
 
 export default function Section2 ( props ) {
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = options => {
+        if ( options?.reload ) {
+            props.refresh();
+        }
+        setOpen(false);
+    };
+
     const classes = customStyles();
     return(
         <Container className={classes.root} maxWidth="md">
@@ -76,9 +90,10 @@ export default function Section2 ( props ) {
                     
                 />
             </div>
-            <Button  className={ classes.button } variant="contained" color="secondary" disableElevation disableRipple>
+            <Button onClick={handleOpen}  className={ classes.button } variant="contained" color="secondary" disableElevation disableRipple>
                 <AddOutlinedIcon className={ classes.addIcon } /> New Task
             </Button>
+            <CreateModal open={open} handleClose={handleClose} />
         </Container>
     );
 }

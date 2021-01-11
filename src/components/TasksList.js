@@ -9,6 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CreateModal from './CreateModal';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,6 +30,21 @@ const useStyles = makeStyles((theme) => ({
 export default function CheckboxList( props ) {
     const classes = useStyles();
     const [checked, setChecked] = React.useState(props.tasks);
+    const [open, setOpen] = React.useState(false);
+    const [selectedTask, setSelectedTask] = React.useState('');
+    const handleOpen = value => () => {
+        console.log( value )
+        setSelectedTask( () => ({ ...value }) );
+        setOpen(true);
+    };
+
+    const handleClose = options => {
+        if ( options?.reload ) {
+            props.refresh();
+        }
+        setSelectedTask( () => {});
+        setOpen(false);
+    };
 
     const handleToggle = (value) => () => {
         value.completed = !value.completed;
@@ -42,6 +58,10 @@ export default function CheckboxList( props ) {
         props.handleTaskCompleted( value );
         setChecked(newChecked);
     };
+
+    const handleTaskDelete = value => () => {
+        props.handleTaskDelete( value );
+    }
 
     return (
         <List className={classes.root}>
@@ -67,9 +87,9 @@ export default function CheckboxList( props ) {
                         }} id={labelId} primary={value.name} />
                 <ListItemSecondaryAction>
                     <IconButton edge="start" aria-label="edit">
-                        <EditIcon />
+                        <EditIcon onClick={handleOpen(value)} />
                     </IconButton>
-                    <IconButton edge="end" aria-label="edit">
+                    <IconButton onClick={handleTaskDelete( value )} edge="end" aria-label="edit">
                         <DeleteIcon />
                     </IconButton>
                 </ListItemSecondaryAction>
@@ -77,6 +97,11 @@ export default function CheckboxList( props ) {
             );
             
         })}
+        {
+            ( selectedTask ) ?
+            <CreateModal handleClose={handleClose} task={selectedTask} name={selectedTask?.name} open={open} />
+            : ''
+        }
         </List>
     );
 }
