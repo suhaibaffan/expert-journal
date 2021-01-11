@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar';
 import Section1 from '../components/Section1'
+import Section2 from '../components/Section2'
 import Styled from 'styled-components';
 import { getUserFromLocalStorage } from '../helpers/auth';
 import { handleLogout } from '../hooks/logout';
@@ -18,6 +19,7 @@ export default function Dashboard () {
         <DashboardDiv>
             <Navbar name={userObj.name} profile={userObj.profile} logout={handleLogout} />
             <Section1 />
+            <Section2 />
         </DashboardDiv>
     );
 }

@@ -1,7 +1,8 @@
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/styles';
-import Card from './Card';
 import TaskCompletedCard from './TaskCompletedCard';
+import LatestCreatedTask from './LatestCreatedTask';
+import PieCard from './PieCard';
 
 const customStyles = makeStyles( () => ({
     root: {
@@ -20,12 +21,8 @@ export default function Section1 ( props ) {
                     completedTasks={props.completedTasks}
                     totalTasks={props.totalTasks}
                 />
-                <Card>
-                    s
-                </Card>
-                <Card>
-                    s
-                </Card>
+                <LatestCreatedTask tasks={[{name: 'hello'}]}/>
+                <PieCard data={[1, 12]}/>
         </Container>
     );
 }
