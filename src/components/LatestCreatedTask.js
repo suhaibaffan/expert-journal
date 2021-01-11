@@ -25,8 +25,10 @@ export default function LatestCreatedTask ( props ) {
             </Typography>
             <ul className={classes.li}>
                 {
-                    tasks.map( (item, index ) => (
-                        <li key={index}>
+                    tasks.slice( 0, 3 ).map( (item, index ) => (
+                        <li style={{
+                            textDecoration: item.completed ? 'line-through' : 'none'
+                        }} key={index}>
                             { item.name }
                         </ li>
                     ) )

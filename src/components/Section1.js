@@ -9,7 +9,7 @@ const customStyles = makeStyles( () => ({
         marginTop: '24px',
         display: 'grid',
         '@media (min-width: 700px)': {
-            gridTemplateColumns: 'repeat( 3, 350px )'
+            gridTemplateColumns: 'repeat( 3, 300px )'
         }
     }
 }) );
@@ -18,11 +18,11 @@ export default function Section1 ( props ) {
     return (
         <Container className={classes.root} maxWidth="md">
                 <TaskCompletedCard
-                    completedTasks={props.completedTasks}
-                    totalTasks={props.totalTasks}
+                    tasksCompleted={props.dashboard.tasksCompleted}
+                    totalTasks={props.dashboard.totalTasks}
                 />
-                <LatestCreatedTask tasks={[{name: 'hello'}]}/>
-                <PieCard data={[1, 12]}/>
+                <LatestCreatedTask tasks={props.dashboard.latestTasks}/>
+                <PieCard data={[props.dashboard.tasksCompleted, props.dashboard.totalTasks]}/>
         </Container>
     );
 }

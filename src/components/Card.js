@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles( () => ({
     paper: {
-        width: '304px',
+        width: '290px',
         height: '158px',
         borderRadius: 12,
         marginRight: '12px',
