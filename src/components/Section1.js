@@ -22,7 +22,7 @@ export default function Section1 ( props ) {
                     totalTasks={props.dashboard.totalTasks}
                 />
                 <LatestCreatedTask tasks={props.dashboard.latestTasks}/>
-                <PieCard data={[props.dashboard.tasksCompleted, props.dashboard.totalTasks]}/>
+                <PieCard data={[ props.dashboard.totalTasks - props.dashboard.tasksCompleted, props.dashboard.tasksCompleted, ]}/>
         </Container>
     );
 }

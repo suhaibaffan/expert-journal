@@ -6,7 +6,7 @@ import Section2 from '../components/Section2'
 import Section3 from '../components/Section3'
 import { getUserFromLocalStorage } from '../helpers/auth';
 import { handleLogout } from '../hooks/logout';
-import { getBackend } from '../axios';
+import { getBackend, markCompleted } from '../axios';
 
 const DashboardDiv = Styled.div`
     background: #F4F4F6 0% 0% no-repeat padding-box;
@@ -17,9 +17,16 @@ export default function Dashboard () {
     const [ allTasks, setAllTasks ] = useState([]);
     const [ dashboard, setDashboard ] = useState({ latestTasks: [] });
 
+    const handleTaskCompleted = async value => {
+        await markCompleted( value )
+        await reload( setDashboard, setAllTasks );
+    }
+
     useEffect( async () => {
         const result = await getBackend();
-        console.log( result )
+        if ( result.redirect ) {
+            handleLogout();
+        }
         setAllTasks( tasks => ([
             ...tasks,
             ...result.allTasks.tasks
@@ -35,7 +42,21 @@ export default function Dashboard () {
             <Navbar name={userObj.name} profile={userObj.profile} logout={handleLogout} />
             <Section1 dashboard={dashboard} />
             <Section2 />
-            <Section3 />
+            <Section3 tasks={allTasks} handleTaskCompleted={handleTaskCompleted}/>
         </DashboardDiv>
     );
+}
+
+async function reload ( setDashboard, setTasks ) {
+    const result = await getBackend();
+        if ( result.redirect ) {
+            handleLogout();
+        }
+        setTasks( () => ([
+            ...result.allTasks.tasks
+        ]) );
+
+        setDashboard( ( ) => ({
+            ...result.dashboard
+        }))
 }

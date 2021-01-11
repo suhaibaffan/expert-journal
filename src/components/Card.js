@@ -3,11 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles( () => ({
     paper: {
-        width: '290px',
+        '@media (min-width: 700px)': {
+            width: '290px',
+            marginRight: '12px',
+            marginLeft: '12px',
+        },
+        width: '100%',
         height: '158px',
         borderRadius: 12,
-        marginRight: '12px',
-        marginLeft: '12px',
         marginBottom: '24px'
     }
 }) );
