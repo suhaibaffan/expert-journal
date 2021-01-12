@@ -60,7 +60,6 @@ export default function useLoginForm ( fn ) {
             login( inputs ).then( data => {
                 if ( data.err ) {
                     errors.push([ '', data.err.response.data ]);
-                    console.log( errors );
                     setInputsErrors( errors );
                 } else {
                     setInputs( prevInputs => ({
@@ -71,7 +70,6 @@ export default function useLoginForm ( fn ) {
                 }
             }).catch( err => {
                 errors.push([ '', err.response.data ]);
-                console.log( errors );
                 setInputsErrors( errors );
             });
         }

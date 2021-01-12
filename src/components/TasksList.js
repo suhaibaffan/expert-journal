@@ -33,7 +33,6 @@ export default function CheckboxList( props ) {
     const [open, setOpen] = React.useState(false);
     const [selectedTask, setSelectedTask] = React.useState('');
     const handleOpen = value => () => {
-        console.log( value )
         setSelectedTask( () => ({ ...value }) );
         setOpen(true);
     };
@@ -86,8 +85,8 @@ export default function CheckboxList( props ) {
                             color: value.completed ? 'black' : '#5285EC'
                         }} id={labelId} primary={value.name} />
                 <ListItemSecondaryAction>
-                    <IconButton edge="start" aria-label="edit">
-                        <EditIcon onClick={handleOpen(value)} />
+                    <IconButton onClick={handleOpen(value)} edge="start" aria-label="edit">
+                        <EditIcon />
                     </IconButton>
                     <IconButton onClick={handleTaskDelete( value )} edge="end" aria-label="edit">
                         <DeleteIcon />

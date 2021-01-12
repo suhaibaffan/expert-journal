@@ -1,6 +1,5 @@
 export const isLoggedIn = () => {
 	const user = JSON.parse( localStorage.getItem('user') );
-	console.log( user )
 	if (user) {
 		if (user.token) {
 			if (user.token.length > 0) {
@@ -18,7 +17,6 @@ export const getUserFromLocalStorage = () => {
 }
 
 export const setUserToLocalStorage = userObj => {
-	console.log( userObj );
 	localStorage.setItem('user', JSON.stringify(userObj));
 }
 

@@ -37,7 +37,6 @@ export async function markCompleted ( item ) {
         const response = await axios.put( updateApi, { completed: item.completed }, { headers });
         return response;
     } catch ( err ) {
-        console.log( err );
         return { redirect: true }
     }
 }
@@ -50,7 +49,6 @@ export async function deleteTask ( item ) {
         };
         const deleteApi = `https://glacial-island-05878.herokuapp.com/user/tasks/${item._id}`;
         const response = await axios.delete( deleteApi, { headers } );
-        console.log( response )
         return response;
     } catch ( err ) {
         return { redirect: true };
@@ -83,7 +81,6 @@ export async function EditTask ( item ) {
         const response = await axios.put( updateApi, { name: item.name }, { headers });
         return response;
     } catch ( err ) {
-        console.log( err );
         return { redirect: true }
     }
 }

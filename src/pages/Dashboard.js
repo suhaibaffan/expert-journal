@@ -16,12 +16,24 @@ const DashboardDiv = Styled.div`
 export default function Dashboard () {
     const userObj = getUserFromLocalStorage();
     const [ allTasks, setAllTasks ] = useState([]);
+    const [ originalTasks, setOriginalTasks ] = useState([]);
     const [ loading, setLoading ] = useState(true);
     const [ dashboard, setDashboard ] = useState({ latestTasks: [] });
+    const [ searchText, setSearchText ] = useState( '' );
 
     const handleTaskCompleted = async value => {
         await markCompleted( value )
         await reload( setDashboard, setAllTasks );
+    };
+
+    const handleSearch = value => {
+        setSearchText( value.target.value );
+        if ( !value.target.value ) {
+            setAllTasks( () => [ ...originalTasks ].reverse());
+            return;
+        }
+        const searchMatchedTasks = allTasks.filter( task => task.name.toLowerCase().includes( value.target.value ) ).reverse();
+        setAllTasks( () => [ ...searchMatchedTasks ]);
     };
 
     const refresh = async () => {
@@ -45,13 +57,15 @@ export default function Dashboard () {
         setDashboard( () => ({
             ...result.dashboard
         }));
+
+        setOriginalTasks( () => [ ...result.allTasks.tasks.reverse() ]);
         setLoading( false );
     }, [])
     return (
         <DashboardDiv>
             <Navbar name={userObj.name} profile={userObj.profile} logout={handleLogout} />
             <Section1 loading={loading} dashboard={dashboard} />
-            <Section2 loading={loading} refresh={refresh}/>
+            <Section2 loading={loading} refresh={refresh} handleSearch={handleSearch} search={searchText}/>
             <Section3 loading={loading} refresh={refresh} tasks={allTasks} handleTaskDelete={handleTaskDelete} handleTaskCompleted={handleTaskCompleted}/>
         </DashboardDiv>
     );

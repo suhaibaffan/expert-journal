@@ -95,7 +95,8 @@ export default function Section2 ( props ) {
                             className={classes.input}
                             placeholder="Search by task name"
                             inputProps={{ 'aria-label': 'search' }}
-                            
+                            value={props.search}
+                            onChange={props.handleSearch}
                         />
                     </div>
                     <Button onClick={handleOpen}  className={ classes.button } variant="contained" color="secondary" disableElevation disableRipple>
