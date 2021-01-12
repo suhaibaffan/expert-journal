@@ -35,7 +35,7 @@ export default function Dashboard () {
             setAllTasks( () => [ ...originalTasks ].reverse());
             return;
         }
-        const searchMatchedTasks = allTasks.filter( task => task.name.toLowerCase().includes( value.target.value ) );
+        const searchMatchedTasks = allTasks.filter( task => task.name.toLowerCase().includes( value.target.value.toLowerCase() ) );
         setAllTasks( () => [ ...searchMatchedTasks ]);
     };
 
