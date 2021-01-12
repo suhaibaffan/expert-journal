@@ -8,7 +8,7 @@ export const BootstrapInput = withStyles((theme) => ({
         fontSize: 16,
         color: '#7A7D7E',
         padding: '10px 12px',
-        margin: 'auto',
+        margin: '6px auto',
         fontFamily: [
             'Montserrat'
         ].join(','),

@@ -33,7 +33,8 @@ const styles = makeStyles( () => ({
     },
     button: {
         textTransform: 'none',
-        borderRadius: 8
+        margin: '12px 0',
+        borderRadius: 8,
     },
     alert: {
         width: '100%',
@@ -42,53 +43,52 @@ const styles = makeStyles( () => ({
     }
 } ));
 
-const InputWithSpacing = Styled.div`
-    margin: 12px 0;
-`;
-
 export default function Login () {
     const classes = styles();
     const { inputs, handleSubmit, handleInputChange } = useLoginForm();
+    
     useEffect(() => {
         if ( inputs.success ) {
             navigate( '/dashboard', true );
         }
     }, [inputs.success]);
+
+    const submitForm = event => {
+        handleSubmit( event );
+    }
+
     return (
         <div>
             { inputs.errors.map( ( [ , error ]) => (
-                <Alert className={classes.alert} severity="error" > { error } </Alert>
+                <Alert key={error} className={classes.alert} severity="error" > { error } </Alert>
             ) )}
             <Container maxWidth="sm" fixed className={classes.parent}>
-                <form className={classes.root}>
+                <form onSubmit={submitForm} className={classes.root}>
                     <Typography className={classes.label} variant="h6" gutterBottom>
                         Login
                     </Typography>
-                    <InputWithSpacing >
-                        <BootstrapInput
-                            value={inputs.id}
-                            name="id"
-                            onChange={handleInputChange}
-                            placeholder="Id"
-                            fullWidth
-                            key="id"
-                        />
-                    </InputWithSpacing>
-                    <InputWithSpacing>
-                        <BootstrapInput
-                            value={inputs.name}
-                            name="name"
-                            onChange={handleInputChange}
-                            placeholder="Name"
-                            fullWidth
-                            key="name"
-                        />
-                    </InputWithSpacing>
-                    <InputWithSpacing>
-                        <Button disabled={inputs.loading} onClick={ handleSubmit } className={ classes.button } variant="contained" color="secondary" disableElevation disableRipple fullWidth>
-                            Login
-                        </Button>
-                    </InputWithSpacing>
+                    <BootstrapInput
+                        value={inputs.id}
+                        name="id"
+                        onChange={handleInputChange}
+                        placeholder="Id"
+                        fullWidth
+                        key="id"
+                        required
+                        autoFocus
+                    />
+                    <BootstrapInput
+                        value={inputs.name}
+                        name="name"
+                        onChange={handleInputChange}
+                        placeholder="Name"
+                        fullWidth
+                        key="name"
+                        required
+                    />
+                    <Button type="submit" disabled={inputs.loading} onClick={ handleSubmit } className={ classes.button } variant="contained" color="secondary" disableElevation disableRipple fullWidth>
+                        Login
+                    </Button>
                 </form>
             </Container>
         </div>

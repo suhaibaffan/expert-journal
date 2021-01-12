@@ -16,7 +16,8 @@ const getValidationErrors = ({ id, name }) => {
 async function login ( input ) {
     try {
         const response = await axios.post( '/user/login', {
-            ...input
+            ...input,
+            name: input.name.toLowerCase()
         });
         setUserToLocalStorage( response?.data );
         return response;

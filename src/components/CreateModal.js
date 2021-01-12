@@ -50,7 +50,7 @@ const InputWithSpacing = Styled.div`
 `;
 
 export default function CreateModal ( props ) {
-    const [ taskName, setTaskName ] = React.useState( props.name || '' );
+    const [ taskName, setTaskName ] = React.useState( props?.name || '' );
     const classes = styles();
     const label = props.name ? 'Edit Task' : '+ New Task';
     const taskButton = props.task ? 'Edit' : 'New Task';
@@ -73,7 +73,6 @@ export default function CreateModal ( props ) {
     };
 
     const handleClose = () => {
-        if ( taskName === '' ) return;
         setTaskName( '');
         props.handleClose();
     }
