@@ -11,14 +11,14 @@ const useStyles = makeStyles( () => ({
         width: '100%',
         height: '158px',
         borderRadius: 12,
-        marginBottom: '24px'
+        marginBottom: '24px',
     }
 }) );
 
 export default function Card ( props ) {
     const classes = useStyles();
     return (
-        <Paper className={classes.paper} elevation="3">
+        <Paper className={classes.paper} elevation={3}>
             {props.children}
         </Paper>
     );

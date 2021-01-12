@@ -25,7 +25,7 @@ export default function LatestCreatedTask ( props ) {
             </Typography>
             <ul className={classes.li}>
                 {
-                    tasks.reverse().slice( 0, 3 ).map( (item, index ) => (
+                    tasks.slice( 0, 3 ).map( (item, index ) => (
                         <li style={{
                             textDecoration: item.completed ? 'line-through' : 'none',
                             color: item.completed ? 'black' : '#537178'

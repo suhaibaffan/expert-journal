@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import { BootstrapInput } from '../components/InputText';
 import useLoginForm from '../hooks/useLoginForm';
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles( () => ({
     root: {
         margin: '50% auto',
         width: '296px',

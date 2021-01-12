@@ -73,8 +73,14 @@ export default function CreateModal ( props ) {
     };
 
     const handleClose = () => {
+        if ( taskName === '' ) return;
         setTaskName( '');
         props.handleClose();
+    }
+
+    const submitForm = event => {
+        event.preventDefault();
+        handleSubmit();
     }
 
     return (
@@ -82,7 +88,7 @@ export default function CreateModal ( props ) {
             open={props.open}
             onClose={handleClose}
         >
-            <form className={classes.root}>
+            <form onSubmit={submitForm} className={classes.root}>
                 <Typography className={classes.label} variant="h6" gutterBottom>
                     { label }
                 </Typography>

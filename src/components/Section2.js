@@ -88,7 +88,7 @@ export default function Section2 ( props ) {
                     </Typography>
                     <div />
                     <div className={classes.div}>
-                        <IconButton type="submit" className={classes.icon} aria-label="search">
+                        <IconButton className={classes.icon} aria-label="search">
                             <SearchIcon />
                         </IconButton>
                         <InputBase

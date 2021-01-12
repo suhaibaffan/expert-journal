@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
         color: '#5285EC',
         font: 'normal normal medium 20px/24px Montserrat',
         boxShadow: '0px 3px 6px #00000014',
-        borderRadius: 12
+        borderRadius: 12,
+        marginBottom: '30px'
     },
     item: {
             height: '73px',
@@ -68,7 +69,7 @@ export default function CheckboxList( props ) {
             const labelId = `checkbox-list-label-${value._id}`;
 
             return (
-            <ListItem dense disableRipple className={classes.item} key={value['_id']} role={undefined} button>
+            <ListItem dense disableRipple className={classes.item} key={value._id} role={undefined} button>
                 <ListItemIcon>
                     <Checkbox
                         edge="start"
@@ -85,10 +86,10 @@ export default function CheckboxList( props ) {
                             color: value.completed ? 'black' : '#5285EC'
                         }} id={labelId} primary={value.name} />
                 <ListItemSecondaryAction>
-                    <IconButton onClick={handleOpen(value)} edge="start" aria-label="edit">
+                    <IconButton key="1" onClick={handleOpen(value)} edge="start" aria-label="edit">
                         <EditIcon />
                     </IconButton>
-                    <IconButton onClick={handleTaskDelete( value )} edge="end" aria-label="edit">
+                    <IconButton key="2" onClick={handleTaskDelete( value )} edge="end" aria-label="edit">
                         <DeleteIcon />
                     </IconButton>
                 </ListItemSecondaryAction>

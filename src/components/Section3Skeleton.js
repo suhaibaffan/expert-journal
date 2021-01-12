@@ -14,9 +14,9 @@ export default function Loading ( props ) {
     const classes = customStyles();
     return (
         <div className={classes.root}>
-            <Skeleton className={classes.skeleton} variant="text" width="100%" height="80px" />
-            <Skeleton className={classes.skeleton} variant="text" width="100%" height="80px" />
-            <Skeleton className={classes.skeleton} variant="text" width="100%" height="80px" />
+            <Skeleton key="1" className={classes.skeleton} variant="text" width="100%" height="80px" />
+            <Skeleton key="2" className={classes.skeleton} variant="text" width="100%" height="80px" />
+            <Skeleton key="3" className={classes.skeleton} variant="text" width="100%" height="80px" />
         </div>
     );
 }
